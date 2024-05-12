@@ -1,30 +1,36 @@
-# React + TypeScript + Vite
+# Quick Chat API Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![build](https://github.com/entroped/quick-chat-api-client/actions/workflows/npm-build-test.yml/badge.svg)](https://github.com/entroped/quick-chat-api-client/actions/workflows/npm-build-test.yml)
 
-Currently, two official plugins are available:
+A Simple React based chat component designed to use with external services via Rest APIs. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Chat Preview](./public/preview.png)
 
-## Expanding the ESLint configuration
+Please note that this repository is under development. New updates are coming with the following:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+ - External configuration (.env)
+ - Message update from APIs
+    - Waiting for long-time requests (Google Function -> OpenAI)
+    - Message Polling (Rest API and Firebase)
+ - Pub/Sub Support/Subscription
 
-- Configure the top-level `parserOptions` property like this:
+The current stage is considered a (UI/UX)/**POC Build**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+
+## Getting started
+
+```bash
+npm install
+npm run build
+npm run start
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+You can find the main QuickChatComponent in ./src/components/[QuickChatComponent.tsx](src%2Fcomponents%2FQuickChatComponent.tsx)
+
+## Contribute
+
+There are many ways to [contribute](https://github.com/entroped/quick-chat-api-client/blob/main/CONTRIBUTING.md) to Contract Templates.
+* [Submit bugs](https://github.com/entroped/quick-chat-api-client/issues) and help us verify fixes as they are checked in.
+* Review the [source code changes](https://github.com/entroped/quick-chat-api-client/pulls).
+* [Contribute bug fixes](https://github.com/entroped/quick-chat-api-client/blob/main/CONTRIBUTING.md).
+
