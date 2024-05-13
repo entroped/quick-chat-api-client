@@ -37,6 +37,10 @@
     border-top-right-radius: 10px;
 }
 
+.qc-chat-container, .qc-chat-inputs {
+    border-bottom-left-radius: 10px;
+}
+
 .qc-chat-inputs {
     margin-top: 1em;
     color: #3B3B3B;
