@@ -118,7 +118,7 @@ export default function QuickChatComponent() {
                 </div>
                 <div className="qc-chat-message-input-tools">
                     <button className="qc-chat-button-send" onClick={sendMessage}>
-                        <BsFillSendFill color='#fff' fontSize='1.2em' />
+                        <BsFillSendFill color='#000' fontSize='1.2em' />
                     </button>
                 </div>
             </div>

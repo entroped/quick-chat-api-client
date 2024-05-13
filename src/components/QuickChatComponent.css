@@ -1,3 +1,8 @@
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 .qc-chat-container {
     height: 100%;
     display: flex;
@@ -6,8 +11,9 @@
     background-color: #fff;
     width: 100%;
     font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
-
+    animation: fadeIn 0.3s;
 }
+
 
 .qc-chat-header {
     color: #3B3B3B;
@@ -24,6 +30,11 @@
     border-width: 0 0 1px;
     padding: .6em .9em;
     box-shadow: 0 3px 4px #c6e3fcab;
+}
+
+.qc-chat-container, .qc-chat-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .qc-chat-inputs {
@@ -64,21 +75,22 @@
 }
 
 .qc-chat-button-send {
-    background-color: inherit;
-    margin-right: 0;
-    margin-left: 0;
+    background-color: #b4dcff;
+    color: #101010;
+    border-radius: 50%;
+    border: 1px solid #85bcfa;
+    padding: .6em 0.7em 0.4em 0.6em;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
     align-self: flex-end;
-    padding: .6em .7em;
-    line-height: 1.5;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
-    border: none;
 }
 
 .qc-chat-button-send:hover {
-    border: none;
     background-color: #9ad7ff;
+    border: 1px solid #535bf2;
 }
 
 .scrollbar-container {
