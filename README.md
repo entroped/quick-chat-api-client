@@ -29,7 +29,7 @@ You can find the main QuickChatComponent in ./src/components/[QuickChatComponent
 
 ## Contribute
 
-There are many ways to [contribute](https://github.com/entroped/quick-chat-api-client/blob/main/CONTRIBUTING.md) to Contract Templates.
+There are many ways to [contribute](https://github.com/entroped/quick-chat-api-client/blob/main/CONTRIBUTING.md) to Quick Chat API Client.
 * [Submit bugs](https://github.com/entroped/quick-chat-api-client/issues) and help us verify fixes as they are checked in.
 * Review the [source code changes](https://github.com/entroped/quick-chat-api-client/pulls).
 * [Contribute bug fixes](https://github.com/entroped/quick-chat-api-client/blob/main/CONTRIBUTING.md).
