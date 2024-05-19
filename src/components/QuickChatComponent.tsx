@@ -1,38 +1,18 @@
-import {useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 import {ChatMessage} from "../types/chat.ts";
 import './QuickChatComponent.css';
 import { BsFillSendFill } from "react-icons/bs";
+import MessageService from "../services/MessageService.ts";
+import {environment} from "../config/constants.ts";
 
 
 export default function QuickChatComponent() {
 
-    const [messages, setMessages] = useState<ChatMessage[]>([
-        {
-            message: 'Hi, I am QC Chat',
-            user: 'Chat'
-        },
-        {
-            message: 'How are you today?',
-            user: 'Chat'
-        },
-        {
-            message: 'Hi, i need a little help with something',
-            user: 'You'
-        },
-        {
-            message: 'I am happy to assist with anything. What is on your mind?',
-            user: 'Chat'
-        },
-        {
-            message: 'Can you point me into the right direction regarding to the contact information for the company?',
-            user: 'You'
-        },
-        {
-            message: 'Yes sure, it is https://www.yourwebpage.com/',
-            user: 'Chat'
-        }
-    ]);
+    const messageClient = useMemo<MessageService>(()=>new MessageService(environment), []);
+
+    const [messages, setMessages] = useState<ChatMessage[]>(messageClient.messages);
     const inputRef = useRef<null|HTMLDivElement>(null);
+
 
     const renderMessages = (messages: ChatMessage[]) => {
 
