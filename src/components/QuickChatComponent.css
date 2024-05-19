@@ -295,3 +295,10 @@
     }
 }
 
+@media (pointer:none), (pointer:coarse) {
+    /** Chat Height increased on handheld devices */
+    .qc-chat-container {
+        max-height: 90vh;
+    }
+}
+
