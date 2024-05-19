@@ -5,6 +5,7 @@
 
 .qc-chat-container {
     height: 100%;
+    max-height: 50vh;
     display: flex;
     flex-direction: column;
     color: #3B3B3B;
@@ -65,6 +66,7 @@
     position: relative;
     overflow: visible;
     flex-shrink: 0;
+    max-width: 100%;
 }
 .qc-chat-content-editor-wrapper {
     margin: 0 0 0 .8em;
@@ -278,5 +280,18 @@
 
 .qc-chat-mg-message:last-child .qc-chat-mg-message-content {
     border-radius: 0 0 .7em 0;
+}
+
+.rotate {
+    animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }
 

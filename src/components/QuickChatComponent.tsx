@@ -1,7 +1,7 @@
-import {useMemo, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import {ChatMessage} from "../types/chat.ts";
 import './QuickChatComponent.css';
-import { BsFillSendFill } from "react-icons/bs";
+import {BsArrowRepeat, BsFillSendFill} from "react-icons/bs";
 import MessageService from "../services/MessageService.ts";
 import {environment} from "../config/constants.ts";
 
@@ -11,9 +11,16 @@ export default function QuickChatComponent() {
     const messageClient = useMemo<MessageService>(()=>new MessageService(environment), []);
 
     const [messages, setMessages] = useState<ChatMessage[]>(messageClient.messages);
+    const [pendingMessage, setPendingMessage] = useState('');
     const inputRef = useRef<null|HTMLDivElement>(null);
 
 
+    const scrollBottom = ()=> {
+        const lastMsgNode = document.querySelector('.qc-chat-mg:last-child');
+        if (lastMsgNode) {
+            lastMsgNode.scrollIntoView({behavior: 'smooth'});
+        }
+    }
     const renderMessages = (messages: ChatMessage[]) => {
 
         const groups = messages
@@ -54,22 +61,26 @@ export default function QuickChatComponent() {
 
     const sendMessage = async ()=> {
         if (inputRef.current && inputRef.current?.innerText) {
-            console.log(inputRef.current.innerText, messages);
-            const messageToSend = inputRef.current.innerText || '';
-            setMessages((messages) => {
-                if (inputRef.current && inputRef.current.innerText) {
-                    messages.push({
-                        user: 'You',
-                        message: inputRef.current.innerText || ''
-                    });
-                    inputRef.current.innerHTML = '';
-                }
-                return [...messages];
-            });
+            const messageToSend = (inputRef.current.innerText || '')
+                .trim().replace(/\n$/g, '');
+            inputRef.current.innerHTML = '';
+            setPendingMessage(messageToSend);
             const serverMessages = await messageClient.sendMessage(messageToSend);
+            setPendingMessage('');
             setMessages(serverMessages);
         }
     }
+
+    const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter' && !event.shiftKey && !pendingMessage) {
+            event.preventDefault();
+            void sendMessage();
+        }
+    };
+
+    useEffect(() => {
+        scrollBottom();
+    }, [messages]);
 
     return (<div className='qc-chat-container'>
         <div className='qc-chat-header'>
@@ -88,19 +99,22 @@ export default function QuickChatComponent() {
             </div>
         </div>
         <div className='qc-chat-messages'>
-            {renderMessages(messages)}
+            {renderMessages(pendingMessage ? [...messages, {message:pendingMessage, user: 'You'}] : messages)}
         </div>
         <div className='qc-chat-inputs'>
             <div className="qc-chat-message-input">
                 <div className="qc-chat-content-editor-wrapper">
                     <div className="scrollbar-container">
                         <div ref={inputRef} className="qc-chat-content-editor" contentEditable="true"
+                             onKeyUp={(e)=>onKeyUp(e)}
                              data-placeholder="Type message here"></div>
                     </div>
                 </div>
                 <div className="qc-chat-message-input-tools">
-                    <button className="qc-chat-button-send" onClick={sendMessage}>
-                        <BsFillSendFill color='#000' fontSize='1.2em' />
+                    <button className="qc-chat-button-send" onClick={()=> !pendingMessage && sendMessage()}>
+                        {pendingMessage ?
+                            <BsArrowRepeat color='#000' fontSize='1.2em' className={'rotate'} /> :
+                            <BsFillSendFill color='#000' fontSize='1.2em' />}
                     </button>
                 </div>
             </div>

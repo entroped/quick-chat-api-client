@@ -11,6 +11,44 @@ class MessageService {
         this.environment = environment;
         this.messages = [];
         this.body = {};
+        this.reloadSessionVariables();
+    }
+
+    private reloadSessionVariables() {
+        if (window.localStorage) {
+            try {
+                const savedBody = JSON.parse(window.localStorage.getItem('qc_chat_body') || '{}');
+                Object.keys(savedBody).forEach(field => {
+                    if (savedBody[field] && this.environment.REQUEST_FIELDS.includes(field)) {
+                        this.body[field] = savedBody[field];
+                    }
+                });
+            } catch (e) {
+                console.error(e);
+            }
+            try {
+                const savedMessages = JSON.parse(window.localStorage.getItem('qc_chat_history') || '[]');
+                if (Array.isArray(savedMessages)) {
+                    savedMessages.forEach(message=>{
+                        if (message.user && message.message) {
+                            this.messages.push({
+                                user: message.user,
+                                message: message.message
+                            });
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
+
+    private syncSessionVariables() {
+        if (window.localStorage) {
+            window.localStorage.setItem('qc_chat_body', JSON.stringify(this.body));
+            window.localStorage.setItem('qc_chat_history', JSON.stringify(this.messages));
+        }
     }
 
 
@@ -43,10 +81,12 @@ class MessageService {
                     });
                 }
                 this.environment.RESPONSE_FIELDS.forEach(rField => {
-                    if (response[rField] && this.environment.REQUEST_FIELDS.includes(rField)) {
+                    if (response[rField] && this.environment.REQUEST_FIELDS.includes(rField) &&
+                        response[rField] !== this.body[rField]) {
                         this.body[rField] = response[rField];
                     }
                 });
+                this.syncSessionVariables();
             }
         }
         return this.messages;
