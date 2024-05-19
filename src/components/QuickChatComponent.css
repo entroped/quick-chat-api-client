@@ -213,7 +213,8 @@
     touch-action: none;
     height: auto;
     position: relative;
-    overflow: hidden !important;
+    overflow: hidden;
+    overflow-y: scroll;
     padding: 0 1em 0 1em;
 }
 

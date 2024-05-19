@@ -31,14 +31,14 @@ class MessageService {
             if (response) {
                 const messages = getAllValuesByPath(response, this.environment.RESPONSE_MESSAGE) as string[];
                 if (messages && Array.isArray(messages)) {
-                    let type = 'assistant';
+                    let type = 'You';
 
                     this.messages = messages.map(message => {
                         const chatMessage:ChatMessage = {
                             message: message,
                             user: type
                         };
-                        type = type === 'assistant' ? 'user' : 'assistant';
+                        type = type === 'assistant' ? 'You' : 'assistant';
                         return chatMessage;
                     });
                 }

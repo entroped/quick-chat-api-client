@@ -52,9 +52,10 @@ export default function QuickChatComponent() {
     };
 
 
-    const sendMessage = ()=> {
+    const sendMessage = async ()=> {
         if (inputRef.current && inputRef.current?.innerText) {
             console.log(inputRef.current.innerText, messages);
+            const messageToSend = inputRef.current.innerText || '';
             setMessages((messages) => {
                 if (inputRef.current && inputRef.current.innerText) {
                     messages.push({
@@ -65,7 +66,8 @@ export default function QuickChatComponent() {
                 }
                 return [...messages];
             });
-
+            const serverMessages = await messageClient.sendMessage(messageToSend);
+            setMessages(serverMessages);
         }
     }
 
