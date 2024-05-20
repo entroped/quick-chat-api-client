@@ -286,6 +286,10 @@
     animation: rotation 2s linear infinite;
 }
 
+.m-1 {
+    margin-top: 1em;
+}
+
 @keyframes rotation {
     0%{
         transform: rotate(0deg);
@@ -302,3 +306,8 @@
     }
 }
 
+@media (max-width: 450px) {
+    .qc-chat-inner {
+        width: 100vw;
+    }
+}

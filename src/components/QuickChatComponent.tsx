@@ -35,7 +35,7 @@ export default function QuickChatComponent() {
         }, [] as ChatMessage[][]);
 
         if (!messages.length) {
-            return (<div>There is no messages</div>)
+            return (<div className='m-1'>There is no messages</div>)
         }
         return (
             <div className='qc-chat-message-list'>
